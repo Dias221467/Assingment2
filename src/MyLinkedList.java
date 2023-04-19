@@ -143,4 +143,24 @@ public class MyLinkedList<T> implements MyList {
             throw new IndexOutOfBoundsException("Index " + index + " out of bounds for list of size " + size);
         }
     }
+    @Override
+    public void clear() {
+        this.head = null;
+        this.tail = null;
+        size = 0;
+    }
+    @Override
+    public T get(int index) {
+        checkIndex(index);
+        Node<T> node = getNode(index);
+        return node.item;
+    }
+
+    private Node<T> getNode(int index) {
+        Node<T> node = head;
+        for (int i = 0; i < index; i++) {
+            node = node.next;
+        }
+        return node;
+    }
 }
