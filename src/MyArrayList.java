@@ -114,7 +114,52 @@ public class MyArrayList<T> implements MyList{
         }
         System.out.println();
     }
-    public void sort(){
-
+    public String sorting(){
+        int intSize = 0;
+        int doubleSize = 0;
+        for (int i = 0; i < size; i++){
+            try {
+                int value = (Integer) arr[i];
+                intSize++;
+            } catch (ClassCastException e) {
+            }
+            try {
+                double tempD = (Double) arr[i];
+                doubleSize++;
+            } catch (ClassCastException e) {
+            }
+        }
+        if (intSize == size){
+            return "int";
+        }
+        if (doubleSize == size){
+            return "double";
+        }
+        return "0";
+    }
+    @Override
+    public void sort() {
+        if (sorting().equals("int")) {
+            int n = size;
+            for (int i = 0; i < n - 1; i++)
+                for (int j = 0; j < n - i - 1; j++)
+                    if ((int) arr[j] > (int) arr[j + 1]) {
+                        // swap temp and arr[i]
+                        T temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
+        }
+        if (sorting().equals("double")) {
+            int n = size;
+            for (int i = 0; i < n - 1; i++)
+                for (int j = 0; j < n - i - 1; j++)
+                    if ((Double) arr[j] > (Double) arr[j + 1]) {
+                        // swap temp and arr[i]
+                        T temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
+        }
     }
 }
