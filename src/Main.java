@@ -22,7 +22,7 @@ public class Main {
         MyLinkedList lists = new MyLinkedList();
         lists.add(15);
         lists.add(575);
-        lists.add(398);
+        lists.add(398.3);
         lists.add(8524);
         lists.add(1381, 3);
         lists.printList();

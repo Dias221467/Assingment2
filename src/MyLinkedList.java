@@ -259,7 +259,7 @@ public class MyLinkedList<T> implements MyList {
             } else if (ptr.item instanceof Double) {
                 containsDoubles = true;
             } else {
-                return false; // if any element is neither integer nor double, list is not sortable
+                return false;
             }
             ptr = ptr.next;
         }
