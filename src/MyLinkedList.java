@@ -71,7 +71,27 @@ public class MyLinkedList<T> implements MyList {
         }
         size++;
     }
-
+    @Override
+    public void add(Object item, int index) {
+        checkIndex(index);
+        Node<T> newNode = new Node<T>((Node<T>) item, null, null);
+        if (index == 0) {
+            add(item);
+            return;
+        }
+        Node<T> ptr = head;
+        for (int i = 1; i <= size; i++) {
+            if (i == index) {
+                newNode.prev = ptr;
+                newNode.next = ptr.next;
+                ptr.next.prev = newNode;
+                ptr.next = newNode;
+                size++;
+                return;
+            }
+            ptr = ptr.next;
+        }
+    }
     @Override
     public boolean remove(Object item) {
         if (head == null) {
