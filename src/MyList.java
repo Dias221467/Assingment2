@@ -1,2 +1,3 @@
-public interface MyList {
+public interface MyList<T> {
+
 }
