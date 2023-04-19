@@ -4,8 +4,8 @@ public class MyLinkedList<T> implements MyList {
         Node<T> next;
         Node<T> prev;
 
-        Node(Node<T> prev, T element, Node<T> next) {
-            this.item = element;
+        Node(Node<T> prev, T item, Node<T> next) {
+            this.item = item;
             this.next = next;
             this.prev = prev;
         }
@@ -27,19 +27,42 @@ public class MyLinkedList<T> implements MyList {
     }
     public void printList(){
         if(size == 0){
-            System.out.println("Linked List is empty\n");
+            System.out.println("Linked list is empty.");
             return;
         }
-        if(head.next == null){
-            System.out.println(head.item);
-            return;
+        Node<T> currentNode = head;
+        while (currentNode != null) {
+            System.out.print(currentNode.item);
+            if (currentNode.next != null) {
+                System.out.print(" ");
+            }
+            currentNode = currentNode.next;
         }
-        System.out.println(head.item + "<->");
-        Node<T> ptr = head.next;
-        while (ptr.next != null){
-            System.out.println(ptr.item + "<->");
-            ptr = ptr.next;
-        }
-        System.out.println(ptr.item + "\n");
+        System.out.println();
     }
+    @Override
+    public boolean contains(Object o) {
+        Node<T> curr = head;
+        while (curr != null) {
+            if (curr.item.equals(head.item)) {
+                return true;
+            }
+            curr = curr.next;
+        }
+        return false;
+    }
+    public void add(Object item) {
+        Node<T> newNode = new Node<T>((Node<T>) item, null, null);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node<T> curr = head;
+            while (curr.next != null) {
+                curr = curr.next;
+            }
+            curr.next = newNode;
+        }
+        size++;
+    }
+
 }
