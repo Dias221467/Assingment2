@@ -26,15 +26,22 @@ public class MyArrayList<T> implements MyList{
         return arr[index];
     }
     public void deleteElement(int index){
-        checkindex(index);
+        checkIndex(index);
         for(int i = index - 1; i<arr.length; i++){
             arr[i-1] = arr[i];
         }
         size--;
     }
-    public void checkindex(int index){
+    public void checkIndex(int index){
         if(index<0||index>=size){
             throw new IndexOutOfBoundsException();
         }
+    }
+    public void clear(){
+        this.arr = (T[]) new Object[5];
+        this.size = 0;
+    }
+    public boolean isEmpty(){
+        return size == 0;
     }
 }

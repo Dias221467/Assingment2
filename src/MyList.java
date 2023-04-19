@@ -1,2 +1,2 @@
-public class MyList {
+public interface MyList {
 }
