@@ -106,12 +106,14 @@ public class MyLinkedList<T> implements MyList {
             ptr = ptr.next;
         }
     }
-
+    //Removes the first occurrence of the specified element from this list.
     @Override
     public boolean remove(Object item) {
+        // If the list is empty, return false
         if (head == null) {
             return false;
         }
+        //If the head contains the item to be removed
         if (head.item.equals(item)) {
             head = head.next;
             if (head != null) {
@@ -120,6 +122,7 @@ public class MyLinkedList<T> implements MyList {
             size--;
             return true;
         }
+        // Iterate through the list starting from the second node
         Node<T> currentNode = head.next;
         while (currentNode != null) {
             if (currentNode.item.equals(item)) {
@@ -135,10 +138,11 @@ public class MyLinkedList<T> implements MyList {
         return false;
     }
 
+    // Removes the element at the specified index in this linked list.
     @Override
     public Object remove(int index) {
         checkIndex(index);
-
+        // Removing the first node
         if (index == 0) {
             Object removed = head.item;
             if (size == 1) {
@@ -151,7 +155,7 @@ public class MyLinkedList<T> implements MyList {
             size--;
             return removed;
         }
-
+        // Removing the last node
         if (index == size - 1) {
             Object removed = tail.item;
             tail = tail.prev;
@@ -159,7 +163,7 @@ public class MyLinkedList<T> implements MyList {
             size--;
             return removed;
         }
-
+        // Removing a node in the middle
         Node<T> ptr = getNodeAtIndex(index);
         Node<T> prev = ptr.prev;
         Node<T> next = ptr.next;
@@ -170,31 +174,31 @@ public class MyLinkedList<T> implements MyList {
         size--;
         return removed;
     }
-
+    // returns the Node object at the specified index in the linked list.
     private Node<T> getNodeAtIndex(int index) {
-        Node<T> ptr = head.next;
-        for (int i = 1; i < size - 1; i++) {
-            if (i == index) {
+        Node<T> ptr = head.next; // Start at the second node
+        for (int i = 1; i < size - 1; i++) { // Loop through the nodes
+            if (i == index) { // If the current index matches the specified index
                 return ptr;
             }
             ptr = ptr.next;
         }
-        return null;
+        return null; // If the specified index is out of bounds, return null
     }
-
+    //Checking if the null under the index exist
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index " + index + " out of bounds for list of size " + size);
         }
     }
-
+    //Delete all List
     @Override
     public void clear() {
         this.head = null;
         this.tail = null;
         size = 0;
     }
-
+    //
     @Override
     public T get(int index) {
         checkIndex(index);
@@ -250,23 +254,31 @@ public class MyLinkedList<T> implements MyList {
 
     @Override
     public void sort() {
+        // check if the list is sortable (i.e., if it contains only integers)
         if (isSortable()) {
             Node<T> front = head;
             Node<T> back = null;
+            // loop through the list using the front pointer
             while (front != null) {
+                // loop backwards from back to front
                 back = front.next;
                 while (back != null && back.prev != null && (Integer) back.item < (Integer) back.prev.item) {
+                    // if the value at back is less than the value at the previous node, swap their values
                     swapValue(back, back.prev);
+                    // move back one node backwards
                     back = back.prev;
                 }
+                // move front one node forwards
                 front = front.next;
             }
         }
     }
+    //checks whether the list contains elements that are only integers and doubles
     public boolean isSortable() {
         Node<T> ptr = head;
         boolean containsIntegers = false;
         boolean containsDoubles = false;
+        // iterate through the list to check the types of its elements
         for (int i = 0; i < size; i++) {
             if (ptr.item instanceof Integer) {
                 containsIntegers = true;
@@ -277,6 +289,7 @@ public class MyLinkedList<T> implements MyList {
             }
             ptr = ptr.next;
         }
+        // if the list contains both integers and doubles, it is sortable
         return containsIntegers && containsDoubles;
     }
     public void swapValue(Node<T> first, Node<T> second) {
