@@ -10,23 +10,28 @@ public class MyLinkedList<T> implements MyList {
             this.prev = prev;
         }
     }
+
     private Node head;
     private Node tail;
     private int size;
-    public MyLinkedList(){
-        this.head=null;
-        this.tail=null;
-        size=0;
+
+    public MyLinkedList() {
+        this.head = null;
+        this.tail = null;
+        size = 0;
     }
+
     @Override
-    public int size(){
+    public int size() {
         return size;
     }
-    public boolean isEmpty(){
+
+    public boolean isEmpty() {
         return head == null;
     }
-    public void printList(){
-        if(size == 0){
+
+    public void printList() {
+        if (size == 0) {
             System.out.println("Linked list is empty.");
             return;
         }
@@ -40,6 +45,7 @@ public class MyLinkedList<T> implements MyList {
         }
         System.out.println();
     }
+
     @Override
     public boolean contains(Object o) {
         Node<T> curr = head;
@@ -51,6 +57,7 @@ public class MyLinkedList<T> implements MyList {
         }
         return false;
     }
+
     public void add(Object item) {
         Node<T> newNode = new Node<T>((Node<T>) item, null, null);
         if (head == null) {
@@ -64,6 +71,7 @@ public class MyLinkedList<T> implements MyList {
         }
         size++;
     }
+
     @Override
     public boolean remove(Object item) {
         if (head == null) {
@@ -91,6 +99,7 @@ public class MyLinkedList<T> implements MyList {
         }
         return false;
     }
+
     @Override
     public Object remove(int index) {
         checkIndex(index);
@@ -143,12 +152,14 @@ public class MyLinkedList<T> implements MyList {
             throw new IndexOutOfBoundsException("Index " + index + " out of bounds for list of size " + size);
         }
     }
+
     @Override
     public void clear() {
         this.head = null;
         this.tail = null;
         size = 0;
     }
+
     @Override
     public T get(int index) {
         checkIndex(index);
@@ -163,6 +174,7 @@ public class MyLinkedList<T> implements MyList {
         }
         return node;
     }
+
     @Override
     public int indexOf(Object o) {
         if (o == null) {
@@ -184,6 +196,7 @@ public class MyLinkedList<T> implements MyList {
         }
         return -1;
     }
+
     @Override
     public int lastIndexOf(Object o) {
         T element = (T) o;
@@ -199,34 +212,41 @@ public class MyLinkedList<T> implements MyList {
         }
         return -1;
     }
+
     @Override
     public void sort() {
-        if (size > 1) {
-            Node<T> current = head;
-            while (current != null) {
-                Node<T> min = findMinimum(current);
-                swapValue(current, min);
-                current = current.next;
+        if (isSortable()) {
+            Node<T> front = head;
+            Node<T> back = null;
+            while (front != null) {
+                back = front.next;
+                while (back != null && back.prev != null && (Integer) back.item < (Integer) back.prev.item) {
+                    swapValue(back, back.prev);
+                    back = back.prev;
+                }
+                front = front.next;
             }
         }
     }
-
-    private Node<T> findMinimum(Node<T> start) {
-        Node<T> min = start;
-        Node<T> current = start.next;
-        while (current != null) {
-            if ((Integer) current.item < (Integer) min.item) {
-                min = current;
+    public boolean isSortable() {
+        Node<T> ptr = head;
+        boolean containsIntegers = false;
+        boolean containsDoubles = false;
+        for (int i = 0; i < size; i++) {
+            if (ptr.item instanceof Integer) {
+                containsIntegers = true;
+            } else if (ptr.item instanceof Double) {
+                containsDoubles = true;
+            } else {
+                return false; // if any element is neither integer nor double, list is not sortable
             }
-            current = current.next;
+            ptr = ptr.next;
         }
-        return min;
+        return containsIntegers && containsDoubles;
     }
-
-    private void swapValue(Node<T> node1, Node<T> node2) {
-        T temp = node1.item;
-        node1.item = node2.item;
-        node2.item = temp;
+    public void swapValue(Node<T> first, Node<T> second) {
+        Object value = first.item;
+        first.item = second.item;
+        second.item = (T) value;
     }
-
 }
