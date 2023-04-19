@@ -163,4 +163,26 @@ public class MyLinkedList<T> implements MyList {
         }
         return node;
     }
+    @Override
+    public int indexOf(Object o) {
+        if (o == null) {
+            Node<T> ptr = head;
+            for (int i = 0; i < size; i++) {
+                if (ptr.item == null) {
+                    return i;
+                }
+                ptr = ptr.next;
+            }
+        } else {
+            Node<T> ptr = head;
+            for (int i = 0; i < size; i++) {
+                if (o.equals(ptr.item)) {
+                    return i;
+                }
+                ptr = ptr.next;
+            }
+        }
+        return -1;
+    }
+
 }
