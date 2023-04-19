@@ -27,6 +27,22 @@ public class MyArrayList<T> implements MyList{
         }
         this.arr[size++] = (T) item;
     }
+    @Override
+    public void add(Object item, int index){
+        if(size == arr.length){
+            increaseLenght();
+        }
+        T[] newArr = (T[]) new Object[arr.length];
+        for (int i = 0; i< index; i++){
+            newArr[i] = arr[i];
+        }
+        for(int i = index; i<size; i++){
+            newArr[i+1] = arr[i];
+        }
+        newArr[index] = (T) item;
+        arr = newArr;
+        size++;
+    }
     public void increaseLenght(){
         T[] newArr =(T[]) new Object[arr.length*2];
         for(int i=0; i<arr.length; i++){
@@ -34,18 +50,19 @@ public class MyArrayList<T> implements MyList{
         }
         arr = newArr;
     }
-    public T getElement(int index){
+    public T get(int index){
         if(index<0 ||index>=size){
             throw new IndexOutOfBoundsException();
         }
         return arr[index];
     }
-    public void deleteElement(int index){
+    public Object remove(int index){
         checkIndex(index);
         for(int i = index - 1; i<arr.length; i++){
             arr[i-1] = arr[i];
         }
         size--;
+        return null;
     }
     public void checkIndex(int index){
         if(index<0||index>=size){
@@ -64,5 +81,8 @@ public class MyArrayList<T> implements MyList{
             System.out.println(arr[i]+"");
         }
         System.out.println();
+    }
+    public void sort(){
+
     }
 }

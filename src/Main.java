@@ -7,9 +7,9 @@ public class Main {
         arrayList.add(20);
         arrayList.add(25);
 
-        System.out.println(arrayList.getElement(3));
-        arrayList.deleteElement(3);
-        System.out.println(arrayList.getElement(3));
+        System.out.println(arrayList.get(3));
+        arrayList.remove(3);
+        System.out.println(arrayList.get(3));
 
         arrayList.clear();
         if(arrayList.isEmpty())
