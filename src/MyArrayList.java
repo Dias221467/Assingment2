@@ -19,4 +19,22 @@ public class MyArrayList<T> implements MyList{
         }
         arr = newArr;
     }
+    public T getElement(int index){
+        if(index<0 ||index>=size){
+            throw new IndexOutOfBoundsException();
+        }
+        return arr[index];
+    }
+    public void deleteElement(int index){
+        checkindex(index);
+        for(int i = index - 1; i<arr.length; i++){
+            arr[i-1] = arr[i];
+        }
+        size--;
+    }
+    public void checkindex(int index){
+        if(index<0||index>=size){
+            throw new IndexOutOfBoundsException();
+        }
+    }
 }
