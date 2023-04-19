@@ -18,4 +18,12 @@ public class MyLinkedList<T> implements MyList {
         this.tail=null;
         size=0;
     }
+    @Override
+    public int size(){
+        return size;
+    }
+    public boolean isEmpty(){
+        return head == null;
+    }
+
 }

@@ -6,11 +6,26 @@ public class MyArrayList<T> implements MyList{
         this.arr = (T[]) new Object[5];
         this.size = 0;
     }
-    public void add(T value){
+    @Override
+    public int size(){
+        return size;
+    }
+    @Override
+    public boolean contains(Object o){
+        boolean bool = false;
+        for(int i = 0; i < size; i++){
+            if(arr[i] == o){
+                bool = true;
+            }
+        }
+        return bool;
+    }
+    @Override
+    public void add(Object item){
         if(size==arr.length){
             increaseLenght();
         }
-        this.arr[size++] = value;
+        this.arr[size++] = (T) item;
     }
     public void increaseLenght(){
         T[] newArr =(T[]) new Object[arr.length*2];
@@ -43,5 +58,11 @@ public class MyArrayList<T> implements MyList{
     }
     public boolean isEmpty(){
         return size == 0;
+    }
+    public void printList(){
+        for (int i = 0; i<size; i++){
+            System.out.println(arr[i]+"");
+        }
+        System.out.println();
     }
 }
