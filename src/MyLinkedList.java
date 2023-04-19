@@ -25,5 +25,21 @@ public class MyLinkedList<T> implements MyList {
     public boolean isEmpty(){
         return head == null;
     }
-
+    public void printList(){
+        if(size == 0){
+            System.out.println("Linked List is empty\n");
+            return;
+        }
+        if(head.next == null){
+            System.out.println(head.item);
+            return;
+        }
+        System.out.println(head.item + "<->");
+        Node<T> ptr = head.next;
+        while (ptr.next != null){
+            System.out.println(ptr.item + "<->");
+            ptr = ptr.next;
+        }
+        System.out.println(ptr.item + "\n");
+    }
 }
