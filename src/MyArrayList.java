@@ -50,12 +50,14 @@ public class MyArrayList<T> implements MyList{
         }
         arr = newArr;
     }
+    @Override
     public T get(int index){
         if(index<0 ||index>=size){
             throw new IndexOutOfBoundsException();
         }
         return arr[index];
     }
+    @Override
     public Object remove(int index){
         checkIndex(index);
         for(int i = index - 1; i<arr.length; i++){
@@ -64,14 +66,44 @@ public class MyArrayList<T> implements MyList{
         size--;
         return null;
     }
+    @Override
+    public boolean remove(Object item){
+        boolean removed = false;
+        for(int i = 0; i < size; i++){
+            if (arr[i] == item){
+                remove(i);
+                removed = true;
+            }
+        }
+        return removed;
+    }
     public void checkIndex(int index){
         if(index<0||index>=size){
             throw new IndexOutOfBoundsException();
         }
     }
+    @Override
+    public int indexOf(Object o){
+        for(int i =0; i < size; i++){
+            if(arr[i] == o){
+                return i;
+            }
+        }
+        return -1;
+    }
+    @Override
+    public int lastIndexOf(Object o){
+        for(int i = size - 1; i >=0; i--){
+            if(arr[i] == o){
+                return i;
+            }
+        }
+        return -1;
+    }
+    @Override
     public void clear(){
         this.arr = (T[]) new Object[5];
-        this.size = 0;
+        this.size = 5;
     }
     public boolean isEmpty(){
         return size == 0;
