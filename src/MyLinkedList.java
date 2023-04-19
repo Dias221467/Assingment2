@@ -4,7 +4,7 @@ public class MyLinkedList<T> implements MyList {
         Node<T> next;
         Node<T> prev;
 
-        Node(Node<T> prev, T item, Node<T> next) {
+        Node(T item, Node<T> next, Node<T> prev) {
             this.item = item;
             this.next = next;
             this.prev = prev;
@@ -58,23 +58,24 @@ public class MyLinkedList<T> implements MyList {
         return false;
     }
 
+    @Override
     public void add(Object item) {
-        Node<T> newNode = new Node<T>((Node<T>) item, null, null);
+        Node<T> newNode = new Node<T>((T) item, null, null);
         if (head == null) {
             head = newNode;
-        } else {
-            Node<T> curr = head;
-            while (curr.next != null) {
-                curr = curr.next;
-            }
-            curr.next = newNode;
+            tail = head;
+        }
+        else {
+            newNode.prev = tail;
+            tail.next = newNode;
+            tail = newNode;
         }
         size++;
     }
     @Override
     public void add(Object item, int index) {
         checkIndex(index);
-        Node<T> newNode = new Node<T>((Node<T>) item, null, null);
+        Node<T> newNode = new Node<T>((T) item, null, null);
         if (index == 0) {
             add(item);
             return;

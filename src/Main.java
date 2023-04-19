@@ -20,10 +20,11 @@ public class Main {
             }
               */
         MyLinkedList lists = new MyLinkedList();
-        lists.add(667);
-        lists.add(228);
-        lists.add(1337);
-        lists.add(1488, 2);
+        lists.add(15);
+        lists.add(575);
+        lists.add(398);
+        lists.add(8524);
+        lists.add(1381, 3);
         lists.printList();
         System.out.println(lists.size());
         System.out.println(lists.isSortable());
