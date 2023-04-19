@@ -184,5 +184,49 @@ public class MyLinkedList<T> implements MyList {
         }
         return -1;
     }
+    @Override
+    public int lastIndexOf(Object o) {
+        T element = (T) o;
+        if (tail.item == element) {
+            return size - 1;
+        }
+        Node<T> ptr = tail.prev;
+        for (int i = size - 2; i >= 0; i--) {
+            if (ptr.item == element) {
+                return i;
+            }
+            ptr = ptr.prev;
+        }
+        return -1;
+    }
+    @Override
+    public void sort() {
+        if (size > 1) {
+            Node<T> current = head;
+            while (current != null) {
+                Node<T> min = findMinimum(current);
+                swapValue(current, min);
+                current = current.next;
+            }
+        }
+    }
+
+    private Node<T> findMinimum(Node<T> start) {
+        Node<T> min = start;
+        Node<T> current = start.next;
+        while (current != null) {
+            if ((Integer) current.item < (Integer) min.item) {
+                min = current;
+            }
+            current = current.next;
+        }
+        return min;
+    }
+
+    private void swapValue(Node<T> node1, Node<T> node2) {
+        T temp = node1.item;
+        node1.item = node2.item;
+        node2.item = temp;
+    }
 
 }
