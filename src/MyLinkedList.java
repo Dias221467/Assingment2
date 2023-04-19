@@ -91,4 +91,56 @@ public class MyLinkedList<T> implements MyList {
         }
         return false;
     }
+    @Override
+    public Object remove(int index) {
+        checkIndex(index);
+
+        if (index == 0) {
+            Object removed = head.item;
+            if (size == 1) {
+                head = null;
+                tail = null;
+            } else {
+                head = head.next;
+                head.prev = null;
+            }
+            size--;
+            return removed;
+        }
+
+        if (index == size - 1) {
+            Object removed = tail.item;
+            tail = tail.prev;
+            tail.next = null;
+            size--;
+            return removed;
+        }
+
+        Node<T> ptr = getNodeAtIndex(index);
+        Node<T> prev = ptr.prev;
+        Node<T> next = ptr.next;
+        Object removed = ptr.item;
+
+        prev.next = next;
+        next.prev = prev;
+        size--;
+        return removed;
+    }
+
+    private Node<T> getNodeAtIndex(int index) {
+        Node<T> ptr = head.next;
+        for (int i = 1; i < size - 1; i++) {
+            if (i == index) {
+                return ptr;
+            }
+            ptr = ptr.next;
+        }
+        return null;
+    }
+
+    private void checkIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index " + index + " out of bounds for list of size " + size);
+        }
+    }
 }
