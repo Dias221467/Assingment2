@@ -15,12 +15,14 @@ public class MyLinkedList<T> implements MyList {
     private Node tail;
     private int size;
 
+    //Creating List with without values
     public MyLinkedList() {
         this.head = null;
         this.tail = null;
         size = 0;
     }
 
+    //Show the size of List
     @Override
     public int size() {
         return size;
@@ -30,11 +32,13 @@ public class MyLinkedList<T> implements MyList {
         return head == null;
     }
 
+    //Show the List
     public void printList() {
         if (size == 0) {
             System.out.println("Linked list is empty.");
             return;
         }
+        //CurrentNode - method which states for specific object
         Node<T> currentNode = head;
         while (currentNode != null) {
             System.out.print(currentNode.item);
@@ -46,6 +50,7 @@ public class MyLinkedList<T> implements MyList {
         System.out.println();
     }
 
+    //contains - method that checking whether array contains a given element
     @Override
     public boolean contains(Object o) {
         Node<T> curr = head;
@@ -58,9 +63,11 @@ public class MyLinkedList<T> implements MyList {
         return false;
     }
 
+    // Create a new node with the given item
     @Override
     public void add(Object item) {
         Node<T> newNode = new Node<T>((T) item, null, null);
+        // If the list is empty, set the new node as the head and tail
         if (head == null) {
             head = newNode;
             tail = head;
@@ -72,17 +79,23 @@ public class MyLinkedList<T> implements MyList {
         }
         size++;
     }
+
+    //add object in specific place
     @Override
     public void add(Object item, int index) {
+        // Check that the index is within bounds
         checkIndex(index);
+        // Create a new node with the given item
         Node<T> newNode = new Node<T>((T) item, null, null);
         if (index == 0) {
             add(item);
             return;
         }
+        // Traverse the list until the specified index is reached
         Node<T> ptr = head;
         for (int i = 1; i <= size; i++) {
             if (i == index) {
+                // Insert the new node into the list
                 newNode.prev = ptr;
                 newNode.next = ptr.next;
                 ptr.next.prev = newNode;
@@ -93,6 +106,7 @@ public class MyLinkedList<T> implements MyList {
             ptr = ptr.next;
         }
     }
+
     @Override
     public boolean remove(Object item) {
         if (head == null) {
